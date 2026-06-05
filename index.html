@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aviso Auto Bot — Setup Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0f1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --green: #00e676;
+    --green-dim: #00c85a;
+    --amber: #ffb300;
+    --red: #ff5252;
+    --blue: #40c4ff;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --border: #1e2d3d;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,230,118,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 80% 80%, rgba(64,196,255,0.05) 0%, transparent 60%);
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 40px 0 32px;
+    animation: fadeDown 0.6s ease both;
+  }
+  .logo-icon {
+    width: 64px; height: 64px;
+    background: linear-gradient(135deg, #00e676, #00c8a0);
+    border-radius: 18px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    margin-bottom: 16px;
+    box-shadow: 0 0 32px rgba(0,230,118,0.3);
+  }
+  .header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .header p {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  /* Thank you banner */
+  .thank-you {
+    background: linear-gradient(135deg, rgba(0,230,118,0.12), rgba(0,200,160,0.08));
+    border: 1px solid rgba(0,230,118,0.25);
+    border-radius: 14px;
+    padding: 18px 22px;
+    text-align: center;
+    margin-bottom: 28px;
+    animation: fadeUp 0.5s 0.2s ease both;
+    font-size: 1rem;
+    color: #b2f5c8;
+  }
+
+  /* License Box */
+  .license-box {
+    background: var(--surface);
+    border: 1.5px solid rgba(0,230,118,0.4);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.5s 0.3s ease both;
+    box-shadow: 0 0 40px rgba(0,230,118,0.08);
+  }
+  .license-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--green);
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .license-key {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(0,230,118,0.07);
+    border: 1px solid rgba(0,230,118,0.2);
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    word-break: break-all;
+    gap: 12px;
+  }
+  .copy-btn {
+    background: var(--green);
+    color: #0a0f1a;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .copy-btn:hover { background: #00ff88; transform: scale(1.05); }
+  .copy-btn.copied { background: #64ffda; }
+
+  .warning-note {
+    margin-top: 14px;
+    background: rgba(255,82,82,0.08);
+    border: 1px solid rgba(255,82,82,0.25);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 0.85rem;
+    color: #ffb3b3;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .warning-note .icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+  /* Site link */
+  .site-link-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    animation: fadeUp 0.5s 0.35s ease both;
+  }
+  .site-link-box span { color: var(--muted); font-size: 0.85rem; }
+  .site-link-box a {
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    background: rgba(64,196,255,0.1);
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(64,196,255,0.2);
+    transition: all 0.2s;
+  }
+  .site-link-box a:hover { background: rgba(64,196,255,0.2); }
+
+  /* Section */
+  .section {
+    margin-bottom: 24px;
+    animation: fadeUp 0.5s 0.4s ease both;
+  }
+  .section-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Download cards */
+  .download-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .download-card:hover {
+    border-color: rgba(0,230,118,0.3);
+    background: var(--surface2);
+  }
+  .download-card .info { flex: 1; }
+  .download-card .tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 5px;
+    margin-bottom: 6px;
+    display: inline-block;
+    letter-spacing: 0.5px;
+  }
+  .tag-bot { background: rgba(0,230,118,0.15); color: var(--green); border: 1px solid rgba(0,230,118,0.2); }
+  .tag-ext { background: rgba(64,196,255,0.12); color: var(--blue); border: 1px solid rgba(64,196,255,0.2); }
+  .tag-fix { background: rgba(255,179,0,0.12); color: var(--amber); border: 1px solid rgba(255,179,0,0.2); }
+  .download-card .name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+  .download-card .desc {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .dl-btn {
+    background: transparent;
+    color: var(--green);
+    border: 1.5px solid rgba(0,230,118,0.35);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.2s;
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+  }
+  .dl-btn:hover {
+    background: rgba(0,230,118,0.1);
+    border-color: var(--green);
+  }
+  .dl-btn.store {
+    color: var(--blue);
+    border-color: rgba(64,196,255,0.35);
+  }
+  .dl-btn.store:hover { background: rgba(64,196,255,0.1); border-color: var(--blue); }
+
+  /* FAQ */
+  .faq-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .faq-item:hover { border-color: rgba(64,196,255,0.25); }
+  .faq-q {
+    padding: 14px 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #e2e8f0;
+    user-select: none;
+    list-style: none;
+  }
+  .faq-q::marker { display: none; }
+  .faq-q .chevron {
+    color: var(--muted);
+    transition: transform 0.3s;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+  details[open] .faq-q .chevron { transform: rotate(180deg); }
+  details[open] { border-color: rgba(64,196,255,0.3); }
+  .faq-a {
+    padding: 0 18px 16px;
+    font-size: 0.87rem;
+    color: var(--muted);
+    line-height: 1.7;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+  }
+  .faq-a a { color: var(--blue); text-decoration: none; }
+  .faq-a a:hover { text-decoration: underline; }
+
+  /* Browser section */
+  .browser-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .browser-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+  }
+  .browser-card:hover {
+    border-color: rgba(0,230,118,0.3);
+    background: var(--surface2);
+  }
+  .browser-card .bname { font-weight: 700; font-size: 0.9rem; color: #fff; margin: 6px 0 3px; }
+  .browser-card .bdesc { font-size: 0.75rem; color: var(--muted); }
+  .browser-card .bicon { font-size: 1.6rem; }
+
+  /* Help */
+  .help-box {
+    background: var(--surface);
+    border: 1px dashed rgba(255,179,0,0.3);
+    border-radius: 14px;
+    padding: 20px 22px;
+    text-align: center;
+    margin-top: 32px;
+    animation: fadeUp 0.5s 0.6s ease both;
+  }
+  .help-box p { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
+  .help-box strong { color: var(--amber); }
+
+  /* Bot info dropdown */
+  .bot-info {
+    margin-top: 6px;
+  }
+  .bot-info summary {
+    font-size: 0.75rem;
+    color: var(--blue);
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    display: inline-block;
+  }
+  .bot-info summary::-webkit-details-marker { display: none; }
+  .bot-info p {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.65;
+    background: rgba(64,196,255,0.05);
+    border-left: 2px solid rgba(64,196,255,0.3);
+    padding: 8px 10px;
+    border-radius: 0 6px 6px 0;
+  }
+  .bot-info p a { color: var(--blue); text-decoration: none; }
+  .bot-info p a:hover { text-decoration: underline; }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Mobile tweaks */
+  @media (max-width: 480px) {
+    .browser-cards { grid-template-columns: 1fr; }
+    .license-key { font-size: 1rem; }
+    .header h1 { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-icon">🤖</div>
+    <h1>Aviso Auto Bot</h1>
+    <p>Setup Guide & Download Links</p>
+  </div>
+
+  <!-- Thank You -->
+  <div class="thank-you">
+    🎉 Thank you for getting Aviso Auto Bot!<br>Your License Key and complete Setup Guide are provided below.
+  </div>
+
+  <!-- License Key -->
+  <div class="license-box">
+    <div class="license-label">
+      🔑 YOUR BOT LICENSE KEY
+    </div>
+    <div class="license-key">
+      <span id="licenseKey">AVISO-7D-EXP-06-05-AKJ</span>
+      <button class="copy-btn" onclick="copyKey()">📋 Copy</button>
+    </div>
+    <div class="warning-note">
+      <span class="icon">⚠️</span>
+      <span>The LICENSE KEY is created for single use only. It will work only once in a single browser. If you clear the browser's data, the license will no longer work.</span>
+    </div>
+  </div>
+
+  <!-- Site Link -->
+  <div class="site-link-box">
+    <span>🟢 Go to Aviso site</span>
+    <a href="https://aviso.bz" target="_blank">aviso.bz →</a>
+  </div>
+
+  <!-- Downloads -->
+  <div class="section">
+    <div class="section-title">📥 Download Links</div>
+    <p style="font-size:0.82rem; color:var(--muted); margin-bottom:12px;">
+      💡 Copy the link and open it from Chrome/Lemur browser. If it's a ZIP file, load it from Extensions; if it's from the Chrome Store, click "Add to Chrome".
+    </p>
+
+    <!-- Main bot -->
+    <div class="download-card">
+      <div class="info">
+        <span class="tag tag-bot">🤖 MAIN BOT</span>
+        <div class="name">Aviso Auto Bot</div>
+        <div class="desc">Download the ZIP and load it as an extension in Lemur</div>
+        <details class="bot-info"><summary>What does this bot do? ▾</summary><p>Automatically watches YouTube videos and completes tasks on the Aviso.bz site. This is the main automation bot — no other bot will work without it.</p></details>
+      </div>
+      <a href="https://www.mediafire.com/file/19ifikns0kfs3h6/AvisoAutoBot.zip/file" target="_blank" class="dl-btn">Download</a>
+    </div>
+
+    <!-- Captcha solver -->
+    <div class="download-card">
+      <div class="info">
+        <span class="tag tag-ext">🔌 EXTENSION</span>
+        <div class="name">Auto Captcha Solve Bot</div>
+        <div class="desc">Download from Mediafire</div>
+        <details class="bot-info"><summary>What does this bot do? ▾</summary><p>Sometimes a Captcha appears while working on Aviso. This bot automatically solves the Captcha, so automation is not interrupted.</p></details>
+      </div>
+      <a href="https://www.mediafire.com/file/3u2eyy5vyty64j7/Captcha_Solver.zip/file" target="_blank" class="dl-btn">Download</a>
+    </div>
+
+    <!-- YT Error detect -->
+    <div class="download-card">
+      <div class="info">
+        <span class="tag tag-fix">⚙️ FIX</span>
+        <div class="name">YT Error Detect Redirect</div>
+        <div class="desc">Download from Mediafire</div>
+        <details class="bot-info"><summary>What does this bot do? ▾</summary><p>If a "Video unavailable" or error appears while trying to play a YouTube video, this bot automatically redirects to the next task. So the bot keeps working instead of getting stuck.</p></details>
+      </div>
+      <a href="https://www.mediafire.com/file/8hxv9ivru309w48/YT-Error-Detect-Redirect.zip/file" target="_blank" class="dl-btn">Download</a>
+    </div>
+
+    <!-- Reloader -->
+    <div class="download-card" id="card-reloader">
+      <div class="info">
+        <span class="tag tag-fix">⚙️ FIX</span>
+        <div class="name">Aviso task page Reloader</div>
+        <div class="desc">Download from Mediafire</div>
+        <details class="bot-info"><summary>What does this bot do? ▾</summary><p>When a new task arrives on Aviso, the page doesn't reload automatically. This bot reloads the task page at set intervals, so there's no chance of missing new tasks.</p></details>
+      </div>
+      <a href="https://www.mediafire.com/file/s5jggvtqcl4m407/Aviso-task-page-Reloader.zip/file" target="_blank" class="dl-btn" id="btn-reloader">Download</a>
+    </div>
+
+    <!-- Popup Error fix -->
+    <div class="download-card" id="card-popup">
+      <div class="info">
+        <span class="tag tag-fix">⚙️ FIX</span>
+        <div class="name">Popup Error</div>
+        <div class="desc">Download from Mediafire</div>
+        <details class="bot-info"><summary>What does this bot do? ▾</summary><p>Sometimes a popup error appears while working on Aviso that stops the bot. This bot automatically closes that popup and keeps the automation running.</p></details>
+      </div>
+      <a href="https://www.mediafire.com/file/6aczv812dph6yno/popup-error.zip/file" target="_blank" class="dl-btn" id="btn-popup">Download</a>
+    </div>
+
+    <!-- Task Error fix -->
+    <div class="download-card" id="card-task">
+      <div class="info">
+        <span class="tag tag-fix">⚙️ FIX</span>
+        <div class="name">Task Error</div>
+        <div class="desc">Download from Mediafire</div>
+        <details class="bot-info"><summary>What does this bot do? ▾</summary><p>If an error appears while completing a task, the bot gets stuck. This bot automatically handles such task errors, so the automation moves on to the next task on its own.</p></details>
+      </div>
+      <a href="https://www.mediafire.com/file/o78kfhw67wvjkyt/task_error_detect.zip/file" target="_blank" class="dl-btn" id="btn-task">Download</a>
+    </div>
+
+    <!-- YT Privacy Screen (Extra) -->
+    <div class="download-card" id="card-privacy" style="border-color: rgba(255,179,0,0.2);">
+      <div class="info">
+        <span class="tag" style="background:rgba(255,179,0,0.1);color:var(--amber);border:1px solid rgba(255,179,0,0.2);">✨ EXTRA</span>
+        <div class="name">YT Privacy Screen</div>
+        <div class="desc">Video plays, but screen stays hidden — protect yourself from inappropriate videos</div>
+        <details class="bot-info"><summary>What does this bot do? ▾</summary><p>Sometimes inappropriate or embarrassing videos appear while doing YouTube tasks on Aviso. Adding this extension lets the video play and the task complete, but nothing is visible on screen.</p></details>
+      </div>
+      <a href="https://www.mediafire.com/file/c2dlgoz722tjtjm/YT-privacy-screen.zip/file" target="_blank" class="dl-btn" id="btn-privacy">Download</a>
+    </div>
+
+    <!-- Ads blocker -->
+    <div class="download-card">
+      <div class="info">
+        <span class="tag tag-ext">🔌 EXTENSION</span>
+        <div class="name">YouTube Ads Blocker</div>
+        <div class="desc">Required for smooth automation — add from Chrome Store</div>
+        <details class="bot-info"><summary>What does this bot do? ▾</summary><p>Repeated ads while watching YouTube videos on Aviso disrupt automation. This extension blocks all YouTube ads, so the bot works without interruption.</p></details>
+      </div>
+      <a href="https://chromewebstore.google.com/detail/adblock-for-youtube-skip/annjejmdobkjaneeafkbpipgohafpcom" target="_blank" class="dl-btn store">Store</a>
+    </div>
+  </div>
+
+  <!-- Browser section -->
+  <div class="section">
+    <div class="section-title">📱 Which Browser Should You Use?</div>
+    <div class="browser-cards">
+      <a href="https://play.google.com/store/apps/details?id=com.lemurbrowser.exts" target="_blank" class="browser-card">
+        <div class="bicon"><img src="https://i.postimg.cc/DzXh4SWv/5243fbf2b2119313b07edb2a5e631bd7912396dd27ac-url.png" alt="Lemur" style="width:40px;height:40px;border-radius:10px;object-fit:cover;"></div>
+        <div class="bname">Lemur Browser</div>
+        <div class="bdesc">For all phones (Recommended)</div>
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=org.flow.browser" target="_blank" class="browser-card">
+        <div class="bicon">🌊</div>
+        <div class="bname">FlowSurf</div>
+        <div class="bdesc">For older phones</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section">
+    <div class="section-title">❓ Frequently Asked Questions</div>
+
+    <details class="faq-item">
+      <summary class="faq-q">How do I add an extension to the browser? <span class="chevron">▼</span></summary>
+      <div class="faq-a">
+        Go to Browser Menu → Extensions → Select the ZIP/CRX file and upload it.<br><br>
+        📺 Video Guide: <a href="https://youtu.be/2n7r2pJO60c" target="_blank">How to install an extension</a><br>
+        📺 Guide: <a href="https://youtu.be/yf5yUHQdubc" target="_blank">Add extension on Android</a>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">How often do tasks arrive? <span class="chevron">▼</span></summary>
+      <div class="faq-a">
+        New tasks arrive every <strong style="color:#fff">40–50 minutes</strong>. The bot will keep running as long as there are tasks or until it gets stuck.
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">Can I use other apps while the bot is running? <span class="chevron">▼</span></summary>
+      <div class="faq-a">
+        Yes! You can run two apps at the same time using <strong style="color:#fff">Split Screen</strong>.<br>
+        📺 <a href="https://m.youtube.com/results?sp=mAEA&search_query=split+screen" target="_blank">Learn how to use split screen →</a>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">What happens if the screen turns off? <span class="chevron">▼</span></summary>
+      <div class="faq-a">
+        If the screen turns off, the bot will stop. Solution:<br>
+        Go to Phone Settings → Find <strong style="color:#fff">Screen Timeout</strong> → Set it to <strong style="color:#fff">30 minutes</strong>.
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary class="faq-q">What should I do if there's a problem? <span class="chevron">▼</span></summary>
+      <div class="faq-a">
+        Do a <strong style="color:#fff">Screen Recording</strong>, write a description of the problem, and send it to me.
+      </div>
+    </details>
+  </div>
+
+  <!-- Help box -->
+  <div class="help-box">
+    <p>❓ If you have any issues, please contact with a <strong>Screen Recording and a description of the problem</strong>.<br>
+    Wishing you success! 🚀</p>
+  </div>
+
+</div>
+
+<script>
+/**
+ * KEY DETECTION
+ *
+ * URL methods:
+ *   PATH:  /aviso-bot-delivery/AVISO-15D-EX-12-05-LVY
+ *   QUERY: ?key=AVISO-15D-EX-12-05-LVY
+ *   HASH:  #AVISO-15D-EX-12-05-LVY
+ */
+(function () {
+  var key = null;
+
+  // Method 1: sessionStorage (comes from 404.html redirect)
+  try {
+    var saved = sessionStorage.getItem('aviso_key');
+    if (saved) { key = saved; sessionStorage.removeItem('aviso_key'); }
+  } catch (e) {}
+
+  // Method 2: URL path
+  if (!key) {
+    var pathParts = window.location.pathname.replace(/\/$/, '').split('/');
+    var lastSegment = pathParts[pathParts.length - 1];
+    if (lastSegment && lastSegment !== 'index.html' && lastSegment.length >= 8) {
+      key = lastSegment;
+    }
+  }
+
+  // Method 3: ?key= query parameter
+  if (!key) {
+    var params = new URLSearchParams(window.location.search);
+    var qKey = params.get('key');
+    if (qKey) key = qKey;
+  }
+
+  // Method 4: #hash
+  if (!key) {
+    var hash = window.location.hash.replace('#', '');
+    if (hash && hash.length >= 8) key = hash;
+  }
+
+  // Key inject
+  if (key) {
+    document.getElementById('licenseKey').textContent = decodeURIComponent(key);
+  }
+})();
+
+function copyKey() {
+  var key = document.getElementById('licenseKey').textContent;
+  var btn = document.querySelector('.copy-btn');
+
+  function showCopied() {
+    btn.textContent = '✅ Copied!';
+    btn.classList.add('copied');
+    setTimeout(function () {
+      btn.textContent = '📋 Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  }
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(key).then(showCopied).catch(function () {
+      fallbackCopy(key, showCopied);
+    });
+  } else {
+    fallbackCopy(key, showCopied);
+  }
+}
+
+function fallbackCopy(text, cb) {
+  var el = document.createElement('textarea');
+  el.value = text;
+  el.style.position = 'fixed';
+  el.style.opacity = '0';
+  document.body.appendChild(el);
+  el.focus();
+  el.select();
+  try { document.execCommand('copy'); } catch (e) {}
+  document.body.removeChild(el);
+  if (cb) cb();
+}
+</script>
+</body>
+</html>
